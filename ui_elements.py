@@ -73,11 +73,14 @@ class Box:
         self.y = y
         self.x = x
 
-    def h_line(self, row, start, finish):
-        self.array[row][start] = "+"
+    def h_line(self, row):
+
+        finish = self.y+self.width
+
+        self.array[row][self.y] = "+"
         self.array[row][finish] = "+"
 
-        pos = start+1
+        pos = self.y+1
 
         while pos < finish:
             self.array[row][pos] = "-"
@@ -85,6 +88,7 @@ class Box:
 
     def add(self):
 
-        self.h_line(row=self.y, start=0, finish=10)
+        self.h_line(row=self.y)
+        self.h_line(row=self.y+self.height)
 
         

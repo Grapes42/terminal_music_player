@@ -8,7 +8,7 @@ columns = int(columns)
 
 screen = Screen(height=rows, width=columns, fps=30, fg="white", bg="black")
 
-box = Box(array=screen.carr, height=10, width=20, y=0, x=0)
+box = Box(array=screen.carr, height=5, width=20, y=0, x=0)
 box.add()
 
 print(screen)
