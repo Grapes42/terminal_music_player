@@ -26,7 +26,7 @@ fg_colors = {
 
 class Screen:
     def __init__(self, height, width, fps, bg=None, fg=None):
-        self.carr = np.full((height, width), " ")
+        self.c_arr = np.full((height, width), " ")
 
         self.height = height
         self.width = width
@@ -58,7 +58,7 @@ class Screen:
         for y in range(self.height):
             screen_string += "\n"
             for x in range(self.width):
-                screen_string += str(f"{self.ansii}{self.carr[y][x]}{ENDC}")
+                screen_string += str(f"{self.ansii}{self.c_arr[y][x]}{ENDC}")
 
         return screen_string
 
@@ -67,20 +67,20 @@ class Box:
     def __init__(self, array, width, height, y, x):
         self.array = array
 
-        self.width = width
-        self.height = height
+        self.width = width - 1
+        self.height = height - 1
 
         self.y = y
         self.x = x
 
     def h_line(self, row):
 
-        finish = self.y + self.width
+        finish = self.x + self.width
 
-        self.array[row][self.y] = "+"
+        self.array[row][self.x] = "+"
         self.array[row][finish] = "+"
 
-        pos = self.y+1
+        pos = self.x+1
 
         while pos < finish:
             self.array[row][pos] = "-"
@@ -93,7 +93,8 @@ class Box:
         pos = self.y + 1
 
         while pos < finish:
-            self.array[pos][column] = "|"
+            if self.array[pos][column] != "+": 
+                self.array[pos][column] = "|"
             pos += 1
 
     def add(self):
