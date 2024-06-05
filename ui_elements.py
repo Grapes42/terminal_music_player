@@ -141,4 +141,31 @@ class Box:
             y_pos += 1
 
 
+class Text:
+    def __init__(self, array, text, bg=None, fg=None, y=0, x=0, center_align=False):
+        self.array = array
+
+        self.text = text
         
+        self.y = y
+        self.x = x
+
+        self.ansii = return_ansii(bg, fg)
+
+        self.center_align = center_align
+
+    def construct(self):
+        y_pos = self.y
+        x_pos = self.x
+
+        if self.center_align == True:
+            x_pos -= round(len(self.text)/2)
+
+        for char in self.text:
+            if char == '\n':
+                y_pos += 1
+                x_pos = self.x
+
+            else:
+                self.array[y_pos][x_pos] = f"{self.ansii}{char}{ENDC}"
+                x_pos += 1
